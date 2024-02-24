@@ -193,7 +193,6 @@ def handle_keys(game_object):
 
 def main():
     """ Метод main."""
-
     screen.fill(BOARD_BACKGROUND_COLOR)
     apple = Apple()
     snake = Snake()
