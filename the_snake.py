@@ -54,7 +54,7 @@ class GameObject:
     position = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))
 
     def draw(self, surface):
-        """ Method draw in Base Class"""
+        """Method draw in Base Class"""
         raise NotImplementedError("draw method in GameObject")
 
 
@@ -85,7 +85,7 @@ class Apple(GameObject):
         rect = pygame.Rect(
              (self.position[0], self.position[1]),
              (GRID_SIZE, GRID_SIZE)
-            )
+        )
         pygame.draw.rect(surface, self.body_color, rect)
         pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
 
@@ -95,7 +95,6 @@ class Snake(GameObject):
      описывающий змейку и её поведение. Этот класс управляет
      её движением, рисует, а также обрабатывает действия пользователя.
      """
-
     def __init__(self, body_color=SNAKE_COLOR):
         super().__init__(body_color)
         self.direction = RIGHT
@@ -167,15 +166,13 @@ class Snake(GameObject):
 
     def update_direction(self):
         """Update the direction of the snake."""
-
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
 
 
 def handle_keys(game_object):
-    """ Метод handle_keys."""
-
+    """Метод handle_keys."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -192,7 +189,7 @@ def handle_keys(game_object):
 
 
 def main():
-    """ Метод main."""
+    """Метод main."""
     screen.fill(BOARD_BACKGROUND_COLOR)
     apple = Apple()
     snake = Snake()
