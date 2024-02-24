@@ -91,10 +91,7 @@ class Apple(GameObject):
 
 
 class Snake(GameObject):
-    """Snake — класс, унаследованный от GameObject,
-     описывающий змейку и её поведение. Этот класс управляет
-     её движением, рисует, а также обрабатывает действия пользователя.
-    """
+    """Snake — класс змейки."""
 
     def __init__(self, body_color=SNAKE_COLOR):
         super().__init__(body_color)
