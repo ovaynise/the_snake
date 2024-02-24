@@ -34,7 +34,8 @@ SPEED = 5
 
 
 # Настройка игрового окна:
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
+screen = pygame.display.set_mode((SCREEN_WIDTH,
+                                  SCREEN_HEIGHT), 0, 32)
 
 # Заголовок окна игрового поля:
 pygame.display.set_caption('Змейка')
@@ -64,7 +65,8 @@ class Apple(GameObject):
 
     @staticmethod
     def randomize_position(grid_size):
-        return randint(0, GRID_WIDTH - 1) * grid_size, randint(0, GRID_HEIGHT - 1) * grid_size
+        return (randint(0, GRID_WIDTH - 1)
+                * grid_size, randint(0, GRID_HEIGHT - 1) * grid_size)
 
     def get_apple_position(self):
         """Метод возвращающий позицию яблока."""
@@ -119,11 +121,13 @@ class Snake(GameObject):
             pygame.draw.rect(surface, BOARD_BACKGROUND_COLOR, last_rect)
 
     def get_head_position(self):
-        """Метод возвращает позицию головы змейки (первый элемент в списке positions)."""
+        """Метод возвращает позицию головы змейки
+        (первый элемент в списке positions)."""
         return self.positions[0]
 
     def reset(self):
-        """Метод сбрасывает змейку в начальное состояние после столкновения с собой."""
+        """Метод сбрасывает змейку в начальное состояние
+        после столкновения с собой."""
         print(self.positions[1])
 
         self.positions = [self.position]
@@ -140,9 +144,10 @@ class Snake(GameObject):
         if object.get_apple_position() == self.get_head_position():
             self.positions.insert(0, position)
             object.update_apple_position()
-            print(f'Длинна змейки увеличилась и составляет:{len(self.positions)-1}')
+            print(f'Длинна змейки составляет:{len(self.positions)-1}')
 
-        if object.get_apple_position() != self.get_head_position() and self.get_head_position() in self.positions[2:]:
+        if (object.get_apple_position() != self.get_head_position()
+                and self.get_head_position() in self.positions[2:]):
             print('Мы попали в змейку')
             self.reset()
 
