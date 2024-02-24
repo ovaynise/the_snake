@@ -1,4 +1,4 @@
-from random import choice, randint
+from random import randint
 
 import pygame
 
@@ -44,22 +44,19 @@ clock = pygame.time.Clock()
 
 
 class GameObject:
-    """Базовый класс, от которого наследуются другие игровые объекты.
-     Он содержит общие атрибуты игровых объектов — например, эти атрибуты
-      описывают позицию и цвет объекта. Этот же класс содержит и заготовку
-       метода для отрисовки объекта на игровом поле — draw"""
+    """Базовый класс"""
     def __init__(self, body_color=None):
         self.body_color = body_color
-        self.board = [[' ' for _ in range(SCREEN_WIDTH)] for _ in range(SCREEN_HEIGHT)]
+        self.board = [[' ' for _ in range(SCREEN_WIDTH)]
+                      for _ in range(SCREEN_HEIGHT)]
     position = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))
 
     def draw(self):
-        raise NotImplemented("draw method in GameObject")
+        raise NotImplementedError("draw method in GameObject")
 
 
 class Apple(GameObject):
-    """Класс, унаследованный от GameObject, описывающий яблоко и действия с ним.
-    Яблоко должно отображаться в случайных клетках игрового поля."""
+    """Класс обрисовывающий яблоко."""
 
     def __init__(self, body_color=APPLE_COLOR):
         super().__init__(body_color)
@@ -70,16 +67,16 @@ class Apple(GameObject):
         return randint(0, GRID_WIDTH - 1) * grid_size, randint(0, GRID_HEIGHT - 1) * grid_size
 
     def get_apple_position(self):
+        """Метод возвращающий позицию яблока."""
         return self.position
 
     def update_apple_position(self):
+        """Метод обновляет позицию яблока."""
         self.position = self.randomize_position(GRID_SIZE)
         return self.position
 
-
     def draw(self, surface):
-        """Метод отрисовывает яблоко на игровой поверхности."""
-
+        """Метод обрисовывает яблоко на игровой поверхности."""
         rect = pygame.Rect(
              (self.position[0], self.position[1]),
              (GRID_SIZE, GRID_SIZE)
@@ -91,7 +88,7 @@ class Apple(GameObject):
 class Snake(GameObject):
     """Snake — класс, унаследованный от GameObject,
      описывающий змейку и её поведение. Этот класс управляет
-     её движением, отрисовкой, а также обрабатывает действия пользователя."""
+     её движением, рисует, а также обрабатывает действия пользователя."""
     def __init__(self, body_color=SNAKE_COLOR):
         super().__init__(body_color)
         self.direction = RIGHT
@@ -192,5 +189,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
