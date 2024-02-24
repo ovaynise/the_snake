@@ -85,7 +85,7 @@ class Apple(GameObject):
         rect = pygame.Rect(
              (self.position[0], self.position[1]),
              (GRID_SIZE, GRID_SIZE)
-         )
+            )
         pygame.draw.rect(surface, self.body_color, rect)
         pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
 
@@ -93,7 +93,9 @@ class Apple(GameObject):
 class Snake(GameObject):
     """Snake — класс, унаследованный от GameObject,
      описывающий змейку и её поведение. Этот класс управляет
-     её движением, рисует, а также обрабатывает действия пользователя."""
+     её движением, рисует, а также обрабатывает действия пользователя.
+     """
+
     def __init__(self, body_color=SNAKE_COLOR):
         super().__init__(body_color)
         self.direction = RIGHT
@@ -126,12 +128,14 @@ class Snake(GameObject):
 
     def get_head_position(self):
         """Метод возвращает позицию головы змейки
-        (первый элемент в списке positions)."""
+        (первый элемент в списке positions).
+        """
         return self.positions[0]
 
     def reset(self):
         """Метод сбрасывает змейку в начальное состояние
-        после столкновения с собой."""
+        после столкновения с собой.
+        """
         print(self.positions[1])
 
         self.positions = [self.position]
@@ -162,6 +166,8 @@ class Snake(GameObject):
             self.last = None
 
     def update_direction(self):
+        """Update the direction of the snake."""
+
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
@@ -169,6 +175,7 @@ class Snake(GameObject):
 
 def handle_keys(game_object):
     """ Метод handle_keys."""
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -186,6 +193,7 @@ def handle_keys(game_object):
 
 def main():
     """ Метод main."""
+
     screen.fill(BOARD_BACKGROUND_COLOR)
     apple = Apple()
     snake = Snake()
