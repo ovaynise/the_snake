@@ -46,13 +46,15 @@ clock = pygame.time.Clock()
 
 class GameObject:
     """Базовый класс"""
+
     def __init__(self, body_color=None):
         self.body_color = body_color
         self.board = [[' ' for _ in range(SCREEN_WIDTH)]
                       for _ in range(SCREEN_HEIGHT)]
     position = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))
 
-    def draw(self):
+    def draw(self, surface):
+        """ Method draw in Base Class"""
         raise NotImplementedError("draw method in GameObject")
 
 
@@ -65,6 +67,7 @@ class Apple(GameObject):
 
     @staticmethod
     def randomize_position(grid_size):
+        """Метод возвращает случайную позицию яблока."""
         return (randint(0, GRID_WIDTH - 1)
                 * grid_size, randint(0, GRID_HEIGHT - 1) * grid_size)
 
@@ -100,6 +103,7 @@ class Snake(GameObject):
         self.last = None
 
     def draw(self, surface):
+        """Метод draw обрисовывает змейку на поверхности."""
         for position in self.positions[:-1]:
             rect = (
                 pygame.Rect((position[0], position[1]), (GRID_SIZE, GRID_SIZE))
@@ -133,7 +137,8 @@ class Snake(GameObject):
         self.positions = [self.position]
         screen.fill(BOARD_BACKGROUND_COLOR)
 
-    def move(self, object):
+    def move(self, obj):
+        """Метод move. Отвечает за движение змейки и события."""
         head_x, head_y = self.get_head_position()
         direction_x, direction_y = self.direction
         position = (
@@ -141,12 +146,12 @@ class Snake(GameObject):
             (head_y + (direction_y * GRID_SIZE)) % SCREEN_HEIGHT
         )
         self.positions.insert(0, position)
-        if object.get_apple_position() == self.get_head_position():
+        if obj.get_apple_position() == self.get_head_position():
             self.positions.insert(0, position)
-            object.update_apple_position()
+            obj.update_apple_position()
             print(f'Длинна змейки составляет:{len(self.positions)-1}')
 
-        if (object.get_apple_position() != self.get_head_position()
+        if (obj.get_apple_position() != self.get_head_position()
                 and self.get_head_position() in self.positions[2:]):
             print('Мы попали в змейку')
             self.reset()
@@ -163,6 +168,7 @@ class Snake(GameObject):
 
 
 def handle_keys(game_object):
+    """ Метод handle_keys."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -179,6 +185,7 @@ def handle_keys(game_object):
 
 
 def main():
+    """ Метод main."""
     screen.fill(BOARD_BACKGROUND_COLOR)
     apple = Apple()
     snake = Snake()
