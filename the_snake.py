@@ -83,8 +83,8 @@ class Apple(GameObject):
     def draw(self, surface):
         """Метод обрисовывает яблоко на игровой поверхности."""
         rect = pygame.Rect(
-             (self.position[0], self.position[1]),
-             (GRID_SIZE, GRID_SIZE)
+            (self.position[0], self.position[1]),
+            (GRID_SIZE, GRID_SIZE)
         )
         pygame.draw.rect(surface, self.body_color, rect)
         pygame.draw.rect(surface, BORDER_COLOR, rect, 1)
@@ -94,7 +94,8 @@ class Snake(GameObject):
     """Snake — класс, унаследованный от GameObject,
      описывающий змейку и её поведение. Этот класс управляет
      её движением, рисует, а также обрабатывает действия пользователя.
-     """
+    """
+
     def __init__(self, body_color=SNAKE_COLOR):
         super().__init__(body_color)
         self.direction = RIGHT
