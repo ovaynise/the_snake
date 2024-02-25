@@ -54,7 +54,6 @@ class GameObject:
                       for _ in range(SCREEN_HEIGHT)]
     position = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))
 
-
     def draw(self, surface):
         """Method draw in Base Class"""
         raise NotImplementedError("draw method in GameObject")
@@ -66,6 +65,7 @@ class GameObject:
             color = self.body_color
         pygame.draw.rect(self.surface, color, rect)
         pygame.draw.rect(self.surface, BORDER_COLOR, rect, 1)
+
 
 class Apple(GameObject):
     """Класс обрисовывающий яблоко."""
@@ -161,10 +161,6 @@ class Snake(GameObject):
         (первый элемент в списке positions).
         """
         return self.positions[0]
-
-
-
-
 
     def update_direction(self):
         """Update the direction of the snake."""
